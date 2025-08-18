@@ -809,7 +809,7 @@ export default function Home() {
                             <button
                               key={`${flower.id}-${color}`}
                               onClick={() => addFlowerToBouquet(flower, color)}
-                              className="p-2 text-sm border border-gray-300 rounded-md hover:border-purple-500 hover:bg-purple-50 transition-colors"
+                              className="p-2 text-sm border border-gray-300 rounded hover:border-purple-500 hover:bg-purple-50 transition-colors"
                             >
                               {color}
                             </button>

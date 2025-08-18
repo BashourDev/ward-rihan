@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Mail, MapPin, Calendar, Users, Building, Gift, Truck, Star, ArrowRight, Check, ChevronDown, ChevronUp, Search, ShoppingBag, User, Heart, ChevronLeft, ChevronRight, Plus, Minus, Palette, Flower } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Calendar, Users, Building, Gift, Truck, Star, ArrowRight, Check, ChevronDown, ChevronUp, Search, ShoppingBag, User, Heart, ChevronLeft, ChevronRight, Plus, Minus, Palette, Flower, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Home() {

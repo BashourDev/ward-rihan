@@ -1,7 +1,10 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail, MapPin, Calendar, Users, Building, Gift, Truck, Star, ArrowRight, Check, ChevronDown, ChevronUp, Search, ShoppingBag, User, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
-function App() {
+export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -338,10 +341,12 @@ function App() {
               }`}
             >
               <div className="absolute inset-0">
-                <img 
+                <Image 
                   src={slide.image} 
                   alt={slide.title} 
-                  className="w-full h-full object-cover opacity-30"
+                  fill
+                  className="object-cover opacity-30"
+                  priority={index === 0}
                 />
               </div>
               <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
@@ -428,9 +433,11 @@ function App() {
             {featuredArrangements.map((arrangement, index) => (
               <div key={index} className="group cursor-pointer">
                 <div className="relative overflow-hidden bg-gray-50 mb-4 rounded-lg">
-                  <img 
+                  <Image 
                     src={arrangement.image} 
                     alt={arrangement.name} 
+                    width={400}
+                    height={320}
                     className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-4 left-4">
@@ -465,9 +472,11 @@ function App() {
               <div key={index} className="text-center group cursor-pointer">
                 <div className="relative mb-6">
                   <div className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden bg-gray-100 group-hover:shadow-lg transition-shadow duration-300">
-                    <img 
+                    <Image 
                       src={event.image} 
                       alt={event.name} 
+                      width={160}
+                      height={160}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>
@@ -508,9 +517,11 @@ function App() {
                 {collection.arrangements.map((arrangement, index) => (
                   <div key={index} className="group cursor-pointer">
                     <div className="relative overflow-hidden bg-white mb-4 shadow-sm rounded-lg">
-                      <img 
+                      <Image 
                         src={arrangement.image} 
                         alt={arrangement.name} 
+                        width={300}
+                        height={256}
                         className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
@@ -540,9 +551,11 @@ function App() {
             {services.map((service, index) => (
               <div key={service.id} className="flex space-x-6">
                 <div className="flex-shrink-0">
-                  <img 
+                  <Image 
                     src={service.image} 
                     alt={service.title} 
+                    width={128}
+                    height={128}
                     className="w-32 h-32 object-cover rounded-lg"
                   />
                 </div>
@@ -816,5 +829,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

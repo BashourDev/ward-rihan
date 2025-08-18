@@ -398,49 +398,6 @@ export default function Home() {
               <ShoppingBag className="text-gray-600 hover:text-gray-900 cursor-pointer" size={20} />
             </div>
 
-            {/* Custom Bouquet Package */}
-            <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl shadow-xl p-8 border-2 border-rose-300 hover:shadow-2xl transition-all duration-300 relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-rose-500 text-white px-4 py-2 rounded-full text-sm font-semibold">Create Your Own</span>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Flower className="w-8 h-8 text-rose-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Custom Bouquet</h3>
-                <p className="text-gray-600 mb-6">Design your perfect arrangement with our interactive builder</p>
-                <div className="text-4xl font-bold text-gray-900 mb-6">From $89<span className="text-lg font-normal text-gray-500">/bouquet</span></div>
-                <ul className="text-left space-y-3 mb-8">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">Choose from 8+ flower types</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">Multiple color options</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">Premium containers included</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">Real-time pricing</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">Perfect for special occasions</span>
-                  </li>
-                </ul>
-                <button 
-                  onClick={() => setShowCustomBouquet(true)}
-                  className="w-full bg-rose-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-rose-700 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Flower className="w-5 h-5" />
-                  Create Custom Bouquet
-                </button>
-              </div>
-            </div>
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -766,7 +723,7 @@ export default function Home() {
                 {index === 1 && (
                   <button 
                     onClick={() => setShowCustomBouquet(true)}
-                    className="w-full py-3 px-6 font-light transition-colors rounded-md border border-white text-white hover:bg-white hover:text-purple-900"
+                    className="w-full py-3 px-6 font-light transition-colors rounded-md border border-white text-white hover:bg-white hover:text-purple-900 mt-3"
                   >
                     <Flower className="inline mr-2" size={16} />
                     Create Custom Bouquet
@@ -774,6 +731,52 @@ export default function Home() {
                 )}
               </div>
             ))}
+          </div>
+
+          {/* Custom Bouquet Package */}
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl shadow-xl p-8 border-2 border-rose-300 hover:shadow-2xl transition-all duration-300 relative max-w-2xl mx-auto">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span className="bg-rose-500 text-white px-4 py-2 rounded-full text-sm font-semibold">Create Your Own</span>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Flower className="w-8 h-8 text-rose-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Custom Bouquet</h3>
+                <p className="text-gray-600 mb-6">Design your perfect arrangement with our interactive builder</p>
+                <div className="text-4xl font-bold text-gray-900 mb-6">From $89<span className="text-lg font-normal text-gray-500">/bouquet</span></div>
+                <ul className="text-left space-y-3 mb-8">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Choose from 8+ flower types</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Multiple color options</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Premium containers included</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Real-time pricing</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Perfect for special occasions</span>
+                  </li>
+                </ul>
+                <button 
+                  onClick={() => setShowCustomBouquet(true)}
+                  className="w-full bg-rose-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-rose-700 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Flower className="w-5 h-5" />
+                  Create Custom Bouquet
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -798,8 +801,26 @@ export default function Home() {
                 <div className="lg:col-span-2">
                   <h3 className="text-lg font-light text-gray-900 mb-4">Select Your Flowers</h3>
                   <div className="space-y-6">
-          </div>
                     {availableFlowers.map((flower) => (
+                      <div key={flower.id} className="border border-gray-200 rounded-lg p-4">
+                        <h4 className="font-light text-gray-900 mb-3">{flower.name} - ${flower.basePrice} each</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                          {flower.colors.map((color) => (
+                            <button
+                              key={`${flower.id}-${color}`}
+                              onClick={() => addFlowerToBouquet(flower, color)}
+                              className="p-2 text-sm border border-gray-300 rounded-md hover:border-purple-500 hover:bg-purple-50 transition-colors"
+                            >
+                              {color}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Container Selection */}
+                  <div className="mt-8">
                     <h3 className="text-lg font-light text-gray-900 mb-4">Choose Container</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {containers.map((container) => (
@@ -919,26 +940,14 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-3">
-          {/* Custom Bouquet CTA */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-8 border border-rose-200">
-              <div className="max-w-2xl mx-auto">
-                <div className="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Flower className="w-10 h-10 text-rose-600" />
+                    <button className="w-full bg-purple-900 text-white py-3 px-6 rounded-lg font-light hover:bg-purple-800 transition-colors">
+                      Add to Cart
+                    </button>
+                    <button className="w-full border border-purple-900 text-purple-900 py-3 px-6 rounded-lg font-light hover:bg-purple-50 transition-colors">
+                      Save for Later
+                    </button>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-4">Create Your Perfect Bouquet</h3>
-                <p className="text-lg text-gray-600 mb-8">
-                  Design a custom arrangement with our interactive bouquet builder. Choose from premium flowers, 
-                  colors, and containers to create something truly unique for your special occasion.
-                </p>
-                <button 
-                  onClick={() => setShowCustomBouquet(true)}
-                  className="bg-rose-600 text-white py-4 px-8 rounded-lg font-semibold hover:bg-rose-700 transition-colors flex items-center justify-center gap-3 mx-auto text-lg"
-                >
-                  <Flower className="w-6 h-6" />
-                  Start Creating Your Bouquet
-                </button>
-                <p className="text-sm text-gray-500 mt-4">Starting from $89 • Real-time pricing • No commitment required</p>
               </div>
             </div>
           </div>

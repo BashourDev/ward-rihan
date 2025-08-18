@@ -523,7 +523,7 @@ export default function Home() {
             <p className="text-gray-600 font-light">Curated selections for the modern workplace</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredArrangements.map((arrangement, index) => (
               <div key={index} className="group cursor-pointer">
                 <div className="relative overflow-hidden bg-gray-50 mb-4 rounded-lg">

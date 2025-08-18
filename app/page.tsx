@@ -398,6 +398,49 @@ export default function Home() {
               <ShoppingBag className="text-gray-600 hover:text-gray-900 cursor-pointer" size={20} />
             </div>
 
+            {/* Custom Bouquet Package */}
+            <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl shadow-xl p-8 border-2 border-rose-300 hover:shadow-2xl transition-all duration-300 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span className="bg-rose-500 text-white px-4 py-2 rounded-full text-sm font-semibold">Create Your Own</span>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Flower className="w-8 h-8 text-rose-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Custom Bouquet</h3>
+                <p className="text-gray-600 mb-6">Design your perfect arrangement with our interactive builder</p>
+                <div className="text-4xl font-bold text-gray-900 mb-6">From $89<span className="text-lg font-normal text-gray-500">/bouquet</span></div>
+                <ul className="text-left space-y-3 mb-8">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Choose from 8+ flower types</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Multiple color options</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Premium containers included</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Real-time pricing</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-rose-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Perfect for special occasions</span>
+                  </li>
+                </ul>
+                <button 
+                  onClick={() => setShowCustomBouquet(true)}
+                  className="w-full bg-rose-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-rose-700 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Flower className="w-5 h-5" />
+                  Create Custom Bouquet
+                </button>
+              </div>
+            </div>
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}

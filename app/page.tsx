@@ -1,13 +1,21 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Mail, MapPin, Calendar, Users, Building, Gift, Truck, Star, ArrowRight, Check, ChevronDown, ChevronUp, Search, ShoppingBag, User, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Calendar, Users, Building, Gift, Truck, Star, ArrowRight, Check, ChevronDown, ChevronUp, Search, ShoppingBag, User, Heart, ChevronLeft, ChevronRight, Plus, Minus, Palette, Flower } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showCustomBouquet, setShowCustomBouquet] = useState(false);
+  const [customBouquet, setCustomBouquet] = useState({
+    flowers: [] as Array<{id: string, name: string, color: string, quantity: number, price: number}>,
+    container: '',
+    size: 'medium',
+    occasion: '',
+    totalPrice: 0
+  });
 
   const heroSlides = [
     {
@@ -273,6 +281,92 @@ export default function Home() {
       answer: 'We offer flexible payment terms including NET 30 for established corporate accounts and various payment methods.'
     }
   ];
+
+  const availableFlowers = [
+    { id: 'roses', name: 'Premium Roses', colors: ['White', 'Red', 'Pink', 'Cream'], basePrice: 8 },
+    { id: 'orchids', name: 'Orchids', colors: ['White', 'Purple', 'Pink', 'Yellow'], basePrice: 12 },
+    { id: 'lilies', name: 'Lilies', colors: ['White', 'Pink', 'Orange', 'Yellow'], basePrice: 10 },
+    { id: 'tulips', name: 'Tulips', colors: ['White', 'Red', 'Pink', 'Yellow', 'Purple'], basePrice: 6 },
+    { id: 'peonies', name: 'Peonies', colors: ['White', 'Pink', 'Coral'], basePrice: 15 },
+    { id: 'hydrangeas', name: 'Hydrangeas', colors: ['White', 'Blue', 'Pink', 'Green'], basePrice: 14 },
+    { id: 'eucalyptus', name: 'Eucalyptus', colors: ['Green', 'Silver'], basePrice: 5 },
+    { id: 'baby-breath', name: "Baby's Breath", colors: ['White'], basePrice: 4 }
+  ];
+
+  const containers = [
+    { id: 'glass-vase', name: 'Glass Vase', price: 25 },
+    { id: 'ceramic-pot', name: 'Ceramic Pot', price: 35 },
+    { id: 'wooden-box', name: 'Wooden Box', price: 40 },
+    { id: 'metal-bucket', name: 'Metal Bucket', price: 30 },
+    { id: 'wicker-basket', name: 'Wicker Basket', price: 28 }
+  ];
+
+  const addFlowerToBouquet = (flower: typeof availableFlowers[0], color: string) => {
+    const flowerId = `${flower.id}-${color.toLowerCase()}`;
+    const existingFlower = customBouquet.flowers.find(f => f.id === flowerId);
+    
+    if (existingFlower) {
+      setCustomBouquet(prev => ({
+        ...prev,
+        flowers: prev.flowers.map(f => 
+          f.id === flowerId 
+            ? { ...f, quantity: f.quantity + 1 }
+            : f
+        )
+      }));
+    } else {
+      setCustomBouquet(prev => ({
+        ...prev,
+        flowers: [...prev.flowers, {
+          id: flowerId,
+          name: `${color} ${flower.name}`,
+          color,
+          quantity: 1,
+          price: flower.basePrice
+        }]
+      }));
+    }
+    updateTotalPrice();
+  };
+
+  const removeFlowerFromBouquet = (flowerId: string) => {
+    const existingFlower = customBouquet.flowers.find(f => f.id === flowerId);
+    
+    if (existingFlower && existingFlower.quantity > 1) {
+      setCustomBouquet(prev => ({
+        ...prev,
+        flowers: prev.flowers.map(f => 
+          f.id === flowerId 
+            ? { ...f, quantity: f.quantity - 1 }
+            : f
+        )
+      }));
+    } else {
+      setCustomBouquet(prev => ({
+        ...prev,
+        flowers: prev.flowers.filter(f => f.id !== flowerId)
+      }));
+    }
+    updateTotalPrice();
+  };
+
+  const updateTotalPrice = () => {
+    setTimeout(() => {
+      setCustomBouquet(prev => {
+        const flowersTotal = prev.flowers.reduce((sum, flower) => sum + (flower.price * flower.quantity), 0);
+        const containerPrice = containers.find(c => c.id === prev.container)?.price || 0;
+        const sizeMultiplier = prev.size === 'small' ? 0.8 : prev.size === 'large' ? 1.3 : 1;
+        return {
+          ...prev,
+          totalPrice: Math.round((flowersTotal + containerPrice) * sizeMultiplier)
+        };
+      });
+    }, 0);
+  };
+
+  useEffect(() => {
+    updateTotalPrice();
+  }, [customBouquet.container, customBouquet.size]);
 
   const toggleFaq = (index: number) => {
     setExpandedFaq(expandedFaq === index ? null : index);
@@ -626,11 +720,207 @@ export default function Home() {
                 }`}>
                   Request {pkg.name} Package
                 </button>
+                {index === 1 && (
+                  <button 
+                    onClick={() => setShowCustomBouquet(true)}
+                    className="w-full py-3 px-6 font-light transition-colors rounded-md border border-white text-white hover:bg-white hover:text-purple-900"
+                  >
+                    <Flower className="inline mr-2" size={16} />
+                    Create Custom Bouquet
+                  </button>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Custom Bouquet Modal */}
+      {showCustomBouquet && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-2xl font-light text-gray-900">Create Your Custom Bouquet</h2>
+              <button 
+                onClick={() => setShowCustomBouquet(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className="p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Flower Selection */}
+                <div className="lg:col-span-2">
+                  <h3 className="text-lg font-light text-gray-900 mb-4">Select Your Flowers</h3>
+                  <div className="space-y-6">
+                    {availableFlowers.map((flower) => (
+                      <div key={flower.id} className="border border-gray-200 rounded-lg p-4">
+                        <div className="flex justify-between items-center mb-3">
+                          <h4 className="font-light text-gray-900">{flower.name}</h4>
+                          <span className="text-sm text-gray-600">${flower.basePrice} each</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {flower.colors.map((color) => (
+                            <button
+                              key={color}
+                              onClick={() => addFlowerToBouquet(flower, color)}
+                              className="px-3 py-1 text-sm border border-gray-300 hover:border-purple-500 hover:text-purple-700 transition-colors rounded-md"
+                            >
+                              <Plus size={12} className="inline mr-1" />
+                              {color}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Container Selection */}
+                  <div className="mt-8">
+                    <h3 className="text-lg font-light text-gray-900 mb-4">Choose Container</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {containers.map((container) => (
+                        <button
+                          key={container.id}
+                          onClick={() => setCustomBouquet(prev => ({ ...prev, container: container.id }))}
+                          className={`p-3 text-sm border rounded-lg transition-colors ${
+                            customBouquet.container === container.id
+                              ? 'border-purple-500 bg-purple-50 text-purple-700'
+                              : 'border-gray-300 hover:border-purple-300'
+                          }`}
+                        >
+                          <div className="font-light">{container.name}</div>
+                          <div className="text-xs text-gray-600">+${container.price}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Size Selection */}
+                  <div className="mt-6">
+                    <h3 className="text-lg font-light text-gray-900 mb-4">Select Size</h3>
+                    <div className="flex gap-3">
+                      {[
+                        { id: 'small', name: 'Small', multiplier: '0.8x' },
+                        { id: 'medium', name: 'Medium', multiplier: '1x' },
+                        { id: 'large', name: 'Large', multiplier: '1.3x' }
+                      ].map((size) => (
+                        <button
+                          key={size.id}
+                          onClick={() => setCustomBouquet(prev => ({ ...prev, size: size.id }))}
+                          className={`px-4 py-2 text-sm border rounded-lg transition-colors ${
+                            customBouquet.size === size.id
+                              ? 'border-purple-500 bg-purple-50 text-purple-700'
+                              : 'border-gray-300 hover:border-purple-300'
+                          }`}
+                        >
+                          {size.name} ({size.multiplier})
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Order Summary */}
+                <div className="bg-gray-50 p-6 rounded-lg h-fit">
+                  <h3 className="text-lg font-light text-gray-900 mb-4">Your Bouquet</h3>
+                  
+                  {customBouquet.flowers.length === 0 ? (
+                    <p className="text-gray-500 text-sm font-light">No flowers selected yet</p>
+                  ) : (
+                    <div className="space-y-3 mb-6">
+                      {customBouquet.flowers.map((flower) => (
+                        <div key={flower.id} className="flex justify-between items-center">
+                          <div className="flex-1">
+                            <div className="text-sm font-light text-gray-900">{flower.name}</div>
+                            <div className="text-xs text-gray-600">
+                              ${flower.price} × {flower.quantity}
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => removeFlowerFromBouquet(flower.id)}
+                              className="text-gray-400 hover:text-red-500"
+                            >
+                              <Minus size={14} />
+                            </button>
+                            <span className="text-sm w-8 text-center">{flower.quantity}</span>
+                            <button
+                              onClick={() => addFlowerToBouquet(
+                                availableFlowers.find(f => flower.id.startsWith(f.id))!,
+                                flower.color
+                              )}
+                              className="text-gray-400 hover:text-purple-500"
+                            >
+                              <Plus size={14} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {customBouquet.container && (
+                    <div className="border-t border-gray-200 pt-3 mb-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="font-light text-gray-900">
+                          {containers.find(c => c.id === customBouquet.container)?.name}
+                        </span>
+                        <span className="text-gray-600">
+                          +${containers.find(c => c.id === customBouquet.container)?.price}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {customBouquet.size !== 'medium' && (
+                    <div className="border-t border-gray-200 pt-3 mb-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="font-light text-gray-900">
+                          Size: {customBouquet.size.charAt(0).toUpperCase() + customBouquet.size.slice(1)}
+                        </span>
+                        <span className="text-gray-600">
+                          {customBouquet.size === 'small' ? '20% off' : '30% premium'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="border-t border-gray-300 pt-3 mb-6">
+                    <div className="flex justify-between items-center">
+                      <span className="font-light text-gray-900">Total</span>
+                      <span className="text-xl font-light text-purple-900">
+                        ${customBouquet.totalPrice}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <input
+                      type="text"
+                      placeholder="Occasion (optional)"
+                      value={customBouquet.occasion}
+                      onChange={(e) => setCustomBouquet(prev => ({ ...prev, occasion: e.target.value }))}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-light"
+                    />
+                    <button 
+                      className="w-full bg-purple-900 text-white py-3 px-4 font-light hover:bg-purple-800 transition-colors rounded-md disabled:opacity-50"
+                      disabled={customBouquet.flowers.length === 0 || !customBouquet.container}
+                    >
+                      Add to Quote Request
+                    </button>
+                    <p className="text-xs text-gray-500 font-light text-center">
+                      Custom bouquets will be included in your package quote
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Package Request Form */}
       <section className="py-20 bg-gray-50">

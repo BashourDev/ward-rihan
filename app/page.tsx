@@ -566,7 +566,7 @@ export default function Home() {
             <p className="text-gray-600 font-light">Curated selections for the modern workplace</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredArrangements.map((arrangement, index) => (
               <div key={index} className="group cursor-pointer">
                 <div className="relative overflow-hidden bg-gray-50 mb-4 rounded-lg">
@@ -798,30 +798,8 @@ export default function Home() {
                 <div className="lg:col-span-2">
                   <h3 className="text-lg font-light text-gray-900 mb-4">Select Your Flowers</h3>
                   <div className="space-y-6">
+          </div>
                     {availableFlowers.map((flower) => (
-                      <div key={flower.id} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex justify-between items-center mb-3">
-                          <h4 className="font-light text-gray-900">{flower.name}</h4>
-                          <span className="text-sm text-gray-600">${flower.basePrice} each</span>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {flower.colors.map((color) => (
-                            <button
-                              key={color}
-                              onClick={() => addFlowerToBouquet(flower, color)}
-                              className="px-3 py-1 text-sm border border-gray-300 hover:border-purple-500 hover:text-purple-700 transition-colors rounded-md"
-                            >
-                              <Plus size={12} className="inline mr-1" />
-                              {color}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Container Selection */}
-                  <div className="mt-8">
                     <h3 className="text-lg font-light text-gray-900 mb-4">Choose Container</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {containers.map((container) => (
@@ -941,24 +919,26 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-3">
-                    <input
-                      type="text"
-                      placeholder="Occasion (optional)"
-                      value={customBouquet.occasion}
-                      onChange={(e) => setCustomBouquet(prev => ({ ...prev, occasion: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-light"
-                    />
-                    <button 
-                      className="w-full bg-purple-900 text-white py-3 px-4 font-light hover:bg-purple-800 transition-colors rounded-md disabled:opacity-50"
-                      disabled={customBouquet.flowers.length === 0 || !customBouquet.container}
-                    >
-                      Add to Quote Request
-                    </button>
-                    <p className="text-xs text-gray-500 font-light text-center">
-                      Custom bouquets will be included in your package quote
-                    </p>
-                  </div>
+          {/* Custom Bouquet CTA */}
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl p-8 border border-rose-200">
+              <div className="max-w-2xl mx-auto">
+                <div className="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Flower className="w-10 h-10 text-rose-600" />
                 </div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">Create Your Perfect Bouquet</h3>
+                <p className="text-lg text-gray-600 mb-8">
+                  Design a custom arrangement with our interactive bouquet builder. Choose from premium flowers, 
+                  colors, and containers to create something truly unique for your special occasion.
+                </p>
+                <button 
+                  onClick={() => setShowCustomBouquet(true)}
+                  className="bg-rose-600 text-white py-4 px-8 rounded-lg font-semibold hover:bg-rose-700 transition-colors flex items-center justify-center gap-3 mx-auto text-lg"
+                >
+                  <Flower className="w-6 h-6" />
+                  Start Creating Your Bouquet
+                </button>
+                <p className="text-sm text-gray-500 mt-4">Starting from $89 • Real-time pricing • No commitment required</p>
               </div>
             </div>
           </div>

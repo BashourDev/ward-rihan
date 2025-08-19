@@ -72,7 +72,7 @@ export default function HeroSection() {
             <div className="absolute -bottom-4 -left-4 w-72 h-72 bg-gradient-to-br from-rose-200 to-emerald-200 rounded-full opacity-20 blur-3xl"></div>
           </div>
         </div>
-      </div>
+     
     </section>
   );
 }

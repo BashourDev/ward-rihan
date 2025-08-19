@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import Image from 'next/image';
 
